@@ -4,10 +4,12 @@ import lombok.RequiredArgsConstructor;
 import my.springframework.api.v1.mapper.CategoryMapper;
 import my.springframework.api.v1.model.CategoryDTO;
 import my.springframework.repositories.CategoryRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 @RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
 
