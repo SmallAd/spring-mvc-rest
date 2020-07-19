@@ -15,10 +15,11 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
-class CustomerServiceTest {
+class CustomerServiceImplTest {
 
     public static final Long ID = 42L;
     public static final String FIRST_NAME = "Vasya";
@@ -59,5 +60,26 @@ class CustomerServiceTest {
         assertNotNull(customerDTO);
         assertEquals(FIRST_NAME, customerDTO.getFirstname());
         assertEquals(LAST_NAME, customerDTO.getLastname());
+    }
+
+    @Test
+    void createNewCustomer() {
+        CustomerDTO customerDTO = new CustomerDTO();
+        customerDTO.setFirstname(FIRST_NAME);
+        customerDTO.setLastname(LAST_NAME);
+
+        Customer customer = new Customer();
+        customer.setId(1L);
+        customer.setFirstName(FIRST_NAME);
+        customer.setLastName(LAST_NAME);
+
+        when(customerRepository.save(any(Customer.class))).thenReturn(customer);
+
+        CustomerDTO savedDTO = customerService.createNewCustomer(customerDTO);
+
+        assertNotNull(savedDTO);
+        assertEquals(FIRST_NAME, savedDTO.getFirstname());
+        assertEquals(LAST_NAME, savedDTO.getLastname());
+        assertEquals("/api/v1/customers/1", savedDTO.getCustomerUrl());
     }
 }
