@@ -33,7 +33,11 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public CustomerDTO getById(Long id) {
         return customerRepository.findById(id)
-                .map(customerMapper::customerToCustomerDTO)
+                .map(customer -> {
+                    CustomerDTO customerDTO = customerMapper.customerToCustomerDTO(customer);
+                    customerDTO.setCustomerUrl(CUSTOMERS_URL + id);
+                    return customerDTO;
+                })
                 .orElseThrow(RuntimeException::new);
     }
 
