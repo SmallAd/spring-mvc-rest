@@ -2,6 +2,7 @@ package my.springframework.controllers.v1;
 
 import my.springframework.api.v1.model.CustomerDTO;
 import my.springframework.services.CustomerService;
+import my.springframework.services.ResourceNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -40,7 +41,9 @@ class CustomerControllerTest extends AbstractRestControllerTest {
     void setUp() {
         MockitoAnnotations.initMocks(this);
 
-        mockMvc = MockMvcBuilders.standaloneSetup(customerController).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(customerController)
+                .setControllerAdvice(new RestResponseEntityExceptionHandler())
+                .build();
     }
 
     @Test
@@ -157,5 +160,14 @@ class CustomerControllerTest extends AbstractRestControllerTest {
                 .andExpect(status().isOk());
 
         verify(customerService).deleteCustomerById(anyLong());
+    }
+
+    @Test
+    void getByIdNotFound() throws Exception {
+        when(customerService.getById(anyLong())).thenThrow(new ResourceNotFoundException());
+
+        mockMvc.perform(get(CustomerController.BASE_URL + "/1")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
     }
 }

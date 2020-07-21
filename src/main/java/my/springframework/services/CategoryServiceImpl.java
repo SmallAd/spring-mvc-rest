@@ -7,6 +7,7 @@ import my.springframework.repositories.CategoryRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,6 +27,8 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public CategoryDTO getByName(String name) {
-        return categoryMapper.categoryToCategoryDTO(categoryRepository.findByName(name));
+        return categoryMapper.categoryToCategoryDTO(
+                Optional.ofNullable(categoryRepository.findByName(name))
+                        .orElseThrow(ResourceNotFoundException::new));
     }
 }
