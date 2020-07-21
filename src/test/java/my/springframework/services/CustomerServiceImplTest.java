@@ -2,6 +2,7 @@ package my.springframework.services;
 
 import my.springframework.api.v1.mapper.CustomerMapper;
 import my.springframework.api.v1.model.CustomerDTO;
+import my.springframework.controllers.v1.CustomerController;
 import my.springframework.domain.Customer;
 import my.springframework.repositories.CustomerRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -80,7 +81,7 @@ class CustomerServiceImplTest {
         assertNotNull(savedDTO);
         assertEquals(FIRST_NAME, savedDTO.getFirstname());
         assertEquals(LAST_NAME, savedDTO.getLastname());
-        assertEquals("/api/v1/customers/1", savedDTO.getCustomerUrl());
+        assertEquals(CustomerController.BASE_URL + "/1", savedDTO.getCustomerUrl());
     }
 
     @Test
@@ -101,7 +102,7 @@ class CustomerServiceImplTest {
         assertNotNull(savedDTO);
         assertEquals(FIRST_NAME, savedDTO.getFirstname());
         assertEquals(LAST_NAME, savedDTO.getLastname());
-        assertEquals("/api/v1/customers/1", savedDTO.getCustomerUrl());
+        assertEquals(CustomerController.BASE_URL + "/1", savedDTO.getCustomerUrl());
     }
 
     @Test
@@ -123,7 +124,7 @@ class CustomerServiceImplTest {
         assertNotNull(savedDTO);
         assertEquals(FIRST_NAME, savedDTO.getFirstname());
         assertEquals(LAST_NAME, savedDTO.getLastname());
-        assertEquals("/api/v1/customers/1", savedDTO.getCustomerUrl());
+        assertEquals(CustomerController.BASE_URL + "/1", savedDTO.getCustomerUrl());
     }
 
     @Test
