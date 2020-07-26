@@ -1,14 +1,18 @@
 package my.springframework.controllers.v1;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import my.springframework.api.v1.model.CustomerDTO;
 import my.springframework.api.v1.model.CustomerListDTO;
+import my.springframework.config.SwaggerConfig;
 import my.springframework.services.CustomerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+@Api(tags = {SwaggerConfig.CUSTOMER_CONTROLLER})
 @Controller
 @RequestMapping(CustomerController.BASE_URL)
 @RequiredArgsConstructor
@@ -17,6 +21,7 @@ public class CustomerController {
     public static final String BASE_URL = "/api/v1/customers";
     private final CustomerService customerService;
 
+    @ApiOperation(value = "This will get a list of customers", notes = "There are some notes about the API")
     @GetMapping
     public ResponseEntity<CustomerListDTO> getAllCustomers() {
         return new ResponseEntity<>(
@@ -29,8 +34,8 @@ public class CustomerController {
     }
 
     @PostMapping
-    public ResponseEntity<CustomerDTO> createNewCustomer(@RequestBody CustomerDTO customerDTO) {
-        return new ResponseEntity<>(customerService.createNewCustomer(customerDTO), HttpStatus.CREATED);
+    public ResponseEntity<CustomerDTO> createNewCustomer(@RequestBody CustomerDTO customer) {
+        return new ResponseEntity<>(customerService.createNewCustomer(customer), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
