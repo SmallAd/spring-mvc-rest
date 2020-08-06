@@ -2,9 +2,9 @@ package my.springframework.services;
 
 import lombok.extern.slf4j.Slf4j;
 import my.springframework.api.v1.mapper.CustomerMapper;
-import my.springframework.api.v1.model.CustomerDTO;
 import my.springframework.bootstrap.Bootstrap;
 import my.springframework.domain.Customer;
+import my.springframework.model.CustomerDTO;
 import my.springframework.repositories.CategoryRepository;
 import my.springframework.repositories.CustomerRepository;
 import my.springframework.repositories.VendorRepository;

@@ -3,9 +3,9 @@ package my.springframework.controllers.v1;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import my.springframework.api.v1.model.CustomerDTO;
-import my.springframework.api.v1.model.CustomerListDTO;
 import my.springframework.config.SwaggerConfig;
+import my.springframework.model.CustomerDTO;
+import my.springframework.model.CustomerListDTO;
 import my.springframework.services.CustomerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,8 +24,10 @@ public class CustomerController {
     @ApiOperation(value = "This will get a list of customers", notes = "There are some notes about the API")
     @GetMapping
     public ResponseEntity<CustomerListDTO> getAllCustomers() {
+        CustomerListDTO customerListDTO = new CustomerListDTO();
+        customerListDTO.getCustomers().addAll(customerService.getAllCustomers());
         return new ResponseEntity<>(
-                new CustomerListDTO(customerService.getAllCustomers()), HttpStatus.OK);
+                customerListDTO, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

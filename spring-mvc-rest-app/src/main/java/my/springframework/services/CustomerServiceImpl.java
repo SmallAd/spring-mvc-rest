@@ -2,9 +2,9 @@ package my.springframework.services;
 
 import lombok.RequiredArgsConstructor;
 import my.springframework.api.v1.mapper.CustomerMapper;
-import my.springframework.api.v1.model.CustomerDTO;
 import my.springframework.controllers.v1.CustomerController;
 import my.springframework.domain.Customer;
+import my.springframework.model.CustomerDTO;
 import my.springframework.repositories.CustomerRepository;
 import org.springframework.stereotype.Service;
 

@@ -1,7 +1,7 @@
 package my.springframework.api.v1.mapper;
 
-import my.springframework.api.v1.model.CustomerDTO;
 import my.springframework.domain.Customer;
+import my.springframework.model.CustomerDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
